@@ -1,6 +1,5 @@
 import './bootstrap.min.css'
 import Footer from "./components/Footer";
-import Header from "./components/Header";
 import PendingExport from './components/PendingExport'
 import PendingExportList from './components/PendingExportList'
 import { Container } from 'react-bootstrap';

@@ -1,9 +1,7 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
-import { DataGrid } from '@material-ui/data-grid';
 import { Container, Badge } from 'react-bootstrap';
 
-import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -12,14 +10,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
-import { useHistory } from 'react-router';
 import axios from 'axios'
-
-const useStyles = makeStyles({
-    table: {
-        minWidth: 650
-    },
-});
 
 var pendingExportSample = {
     "buyer": "",
@@ -56,6 +47,7 @@ function PendingExportList(props) {
     useEffect(() => {
         fectchPendingExports();
     }, [])
+    
     const handleEdit = values => {
 
         props.history.push({
@@ -117,7 +109,7 @@ function PendingExportList(props) {
     ];
     useEffect(() => {
         exportsList.map(x => {
-            x = { ...pendingExportSample, ...x };
+            return { ...pendingExportSample, ...x };
         });
     }, []);
     var a = 0;
