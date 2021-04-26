@@ -20,9 +20,9 @@ const pensingExportSchema = new mongoose.Schema({
     palletisationStatus : String,
     packingMark : String,
     dispatchDateInERP : String,
-    DispatchDateProduction : String,
+    dispatchDateProduction : String,
     containerPlacingDate : String,
-    busaleOrderStatusyer : String,
+    saleOrderStatus : String,
     paymentTerm : String,
     remark : String
 })

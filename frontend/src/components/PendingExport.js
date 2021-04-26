@@ -95,12 +95,15 @@ function PendingExport(props) {
                 setFormData(data);
             }
             catch (err) {
-                alert(JSON.stringify(err));
+                // alert(JSON.stringify(err));
                 console.log('err', err);
             }
         };
         fectchFormData();
     }, [])
+
+
+    const back = () => {    history.push("/"); };
 
     const submit = () => {
         //"stringValue":"\"undefined\"","kind":"ObjectId","value":"undefined","path":"_id","reason":
@@ -113,7 +116,7 @@ function PendingExport(props) {
                     const { data } = axios.patch(`http://localhost:3001/documents/${props.location.state.id}`, {...formUserData});
                 }
                 catch (err) {
-                    alert(JSON.stringify(err));
+                    alert( JSON.stringify(err) + " Error");
                     console.log('err', err);
                 }
             }
@@ -129,7 +132,7 @@ function PendingExport(props) {
                         })
                 }
                 catch (err) {
-                    alert(JSON.stringify(err));
+                    alert( JSON.stringify(err) + " Error");
                     console.log('err', err);
                 }
             };
@@ -149,6 +152,9 @@ function PendingExport(props) {
                     <hr></hr>
                 </Container>
             </div>
+            <div className="px-3 py-3" >
+                    <Button variant="primary" onClick={(e) => { back() }} > <i class="fas fa-chevron-left"></i> Back  </Button>
+                </div>
             <Container>
                 {pendingExportsForm.map(formElement => {
                     return <div key={formElement.key}>

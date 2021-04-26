@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { Container, Badge } from 'react-bootstrap';
-
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -11,7 +10,19 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 import axios from 'axios'
-
+import { makeStyles } from "@material-ui/core/styles";
+const classes = makeStyles({
+    table: {
+        minWidth: 3600
+    },
+    tableCell: {
+        // padding: "0px 8px"
+        minWidth :450
+    },
+    tableHeader : {
+        background : "rgb(66, 66, 66)"
+    }
+});
 var pendingExportSample = {
     "buyer": "",
     "country": "",
@@ -36,9 +47,7 @@ var pendingExportSample = {
 };
 
 function PendingExportList(props) {
-
     const [exportsList, setExportsList] = useState([]);
-
     async function fectchPendingExports() {
         const { data } = await axios.get('http://localhost:3001/documents/');
         setExportsList(data);
@@ -47,13 +56,11 @@ function PendingExportList(props) {
     useEffect(() => {
         fectchPendingExports();
     }, [])
-    
-    const handleEdit = values => {
 
+    const handleEdit = values => {
         props.history.push({
             pathname: '/PendingExport',
             state: { id: values._id, action: "Edit" }
-
         });
     };
 
@@ -70,7 +77,7 @@ function PendingExportList(props) {
                 }
             };
             deletePendingExports();
-            alert(' Your selected record deleted successfully ! ')
+            // alert(' Your selected record deleted successfully ! ')
         }
     };
 
@@ -128,37 +135,35 @@ function PendingExportList(props) {
             </Container>
             <Container>
                 <TableContainer component={Paper}>
-                    <Table aria-label="simple table">
-                        <TableHead>
+                    <Table className={classes.table}  style={{ width: 100 }} aria-label="simple table">
+                        <TableHead className={classes.tableHeader} style={{background: "lightgrey",color:"white" }} >
                             <TableRow>
                                 {columns.map(x => {
                                     a++;
-                                    return <TableCell key={x.headerName} align="right" style={{ width: '20% !important' }} >{x.headerName}</TableCell>
+                                    return <TableCell className={classes.tableCell}  key={x.headerName} align="right"  >{x.headerName}</TableCell>
                                 })}
-                                <TableCell align="right" key={`editAction${a}`} >Edit Action</TableCell>
-                                <TableCell align="right" key={`deleteAction${a}`} >Delete Action</TableCell>
+                                <TableCell className={classes.tableCell} align="right" key={`editAction${a}`} >Edit Action</TableCell>
+                                <TableCell className={classes.table}  style={{ width: 100 }}  align="right" key={`deleteAction${a}`} >Delete Action</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
                             {exportsList.map(row => (
                                 <TableRow key={row.id}>
                                     {Object.keys(pendingExportSample).map(objKey => {
-                                        return <TableCell align="right" key={objKey}>
+                                        return <TableCell className={classes.tableCell}  align="right" key={objKey}>
                                             {row[objKey]}
                                         </TableCell>
                                     })}
-                                    <TableCell align="right">
+                                    <TableCell className={classes.tableCell} align="right">
                                         <Button aria-label="edit" onClick={() => handleEdit(row)}>
                                             <i className="fas fa-edit"></i>
                                         </Button>
                                     </TableCell>
-
-                                    <TableCell align="right">
+                                    <TableCell className={classes.tableCell} align="right">
                                         <Button aria-label="delete" onClick={() => handleDelete(row)}>
                                             <i className="fas fa-trash-alt"></i>
                                         </Button>
                                     </TableCell>
-
                                 </TableRow>
                             ))}
                         </TableBody>
@@ -168,5 +173,4 @@ function PendingExportList(props) {
         </>
     );
 }
-
 export default PendingExportList;
