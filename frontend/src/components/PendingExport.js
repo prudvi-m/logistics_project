@@ -85,6 +85,7 @@ let pendingExportsForm = [
         key: 'remark'
     },
 ]
+
 function PendingExport(props) {
     const history = useHistory();
     const [formData, setFormData] = useState({});
@@ -116,7 +117,7 @@ function PendingExport(props) {
                     const { data } = axios.patch(`http://localhost:3001/documents/${props.location.state.id}`, {...formUserData});
                 }
                 catch (err) {
-                    alert( JSON.stringify(err) + " Error");
+                    //alert( JSON.stringify(err) + " Error");
                     console.log('err', err);
                 }
             }
@@ -132,7 +133,7 @@ function PendingExport(props) {
                         })
                 }
                 catch (err) {
-                    alert( JSON.stringify(err) + " Error");
+                    //alert( JSON.stringify(err) + " Error");
                     console.log('err', err);
                 }
             };
@@ -152,9 +153,9 @@ function PendingExport(props) {
                     <hr></hr>
                 </Container>
             </div>
-            <div className="px-3 py-3" >
+            {/* <div className="px-3 py-3" >
                     <Button variant="primary" onClick={(e) => { back() }} > <i class="fas fa-chevron-left"></i> Back  </Button>
-                </div>
+                </div> */}
             <Container>
                 {pendingExportsForm.map(formElement => {
                     return <div key={formElement.key}>
@@ -172,7 +173,8 @@ function PendingExport(props) {
                     </div>
                 })}
                 <div className="px-3 py-3" >
-                    <Button variant="primary" onClick={(e) => { submit() }} > {props?.location?.state?.action === "Edit" ? "Update" : "Save"}  </Button>
+                    <Button variant="primary" className="mr-4" onClick={(e) => { submit() }} > {props?.location?.state?.action === "Edit" ? "Update" : "Save"}  </Button>
+                    <Button variant="primary" onClick={(e) => { back() }} > <i class="fas fa-chevron-left"></i> Back  </Button>
                 </div>
             </Container>
         </div>

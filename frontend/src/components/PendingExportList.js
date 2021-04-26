@@ -115,7 +115,9 @@ function PendingExportList(props) {
         { field: 'remark', headerName: 'Remark' },
     ];
     useEffect(() => {
+        var i = exportsList.length;
         exportsList.map(x => {
+            x.i = i--;
             return { ...pendingExportSample, ...x };
         });
     }, []);
@@ -142,12 +144,12 @@ function PendingExportList(props) {
                                     a++;
                                     return <TableCell className={classes.tableCell}  key={x.headerName} align="right"  >{x.headerName}</TableCell>
                                 })}
-                                <TableCell className={classes.tableCell} align="right" key={`editAction${a}`} >Edit Action</TableCell>
-                                <TableCell className={classes.table}  style={{ width: 100 }}  align="right" key={`deleteAction${a}`} >Delete Action</TableCell>
+                                <TableCell className={classes.tableCell} align="right" key={`editAction${a}`} >Edit</TableCell>
+                                <TableCell className={classes.table}  style={{ width: 100 }}  align="right" key={`deleteAction${a}`} >Delete </TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {exportsList.map(row => (
+                            {exportsList.reverse().map(row => (
                                 <TableRow key={row.id}>
                                     {Object.keys(pendingExportSample).map(objKey => {
                                         return <TableCell className={classes.tableCell}  align="right" key={objKey}>
